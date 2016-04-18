@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android Studio Gradle | JoyTan | 做自己，不将就</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Android,移动开发">
+  <meta name="description" content="简介Android Studio 使用 Gradle 构建工具，而 Gradle 继承了强大、灵活的 Ant 和 Maven 丰富的依赖管理，配置管理简单，脚本编写方便灵活，插件模块化。
+Android Studio 使用 Gradle 构建工具，Eclipse 的 ADT 插件使用的是 Ant 构建工具。因为两个构建工具的区别，导致习惯了 Eclipse 开发环境的开发者刚开始比较难适应 And">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Studio Gradle">
+<meta property="og:url" content="http://joytan1209.github.io/2016/04/09/Gradle/index.html">
+<meta property="og:site_name" content="JoyTan">
+<meta property="og:description" content="简介Android Studio 使用 Gradle 构建工具，而 Gradle 继承了强大、灵活的 Ant 和 Maven 丰富的依赖管理，配置管理简单，脚本编写方便灵活，插件模块化。
+Android Studio 使用 Gradle 构建工具，Eclipse 的 ADT 插件使用的是 Ant 构建工具。因为两个构建工具的区别，导致习惯了 Eclipse 开发环境的开发者刚开始比较难适应 And">
+<meta property="og:image" content="http://joytan1209.github.io/../../../../img/project.png">
+<meta property="og:updated_time" content="2016-04-09T15:40:23.023Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Studio Gradle">
+<meta name="twitter:description" content="简介Android Studio 使用 Gradle 构建工具，而 Gradle 继承了强大、灵活的 Ant 和 Maven 丰富的依赖管理，配置管理简单，脚本编写方便灵活，插件模块化。
+Android Studio 使用 Gradle 构建工具，Eclipse 的 ADT 插件使用的是 Ant 构建工具。因为两个构建工具的区别，导致习惯了 Eclipse 开发环境的开发者刚开始比较难适应 And">
+<meta name="twitter:image" content="http://joytan1209.github.io/../../../../img/project.png">
+  
+    <link rel="alternative" href="/atom.xml" title="JoyTan" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">谈朝银</h5>
+        <a href="mailto:undefined" title="JoyTan1209@qq.com" class="mail">JoyTan1209@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            归档
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            标签
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="http://www.weibo.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            微博
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/about"  >
+            <i class="icon icon-lg icon-link"></i>
+            关于
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <p>
+  <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>JoyTan &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android Studio Gradle</div>
+        
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Android Studio Gradle</h1>
+    <h5 class="subtitle">2016-04-09</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="posts-Gradle" class="article article-type-posts" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发/">移动开发</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Android Studio Gradle" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/09/Gradle/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简介"><span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么使用"><span class="post-toc-text">为什么使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#项目的构建文件"><span class="post-toc-text">项目的构建文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置结构"><span class="post-toc-text">配置结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构建任务"><span class="post-toc-text">构建任务</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基本的构建定制"><span class="post-toc-text">基本的构建定制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#构建类型"><span class="post-toc-text">构建类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#签名配置"><span class="post-toc-text">签名配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#运行-Proguard"><span class="post-toc-text">运行 Proguard</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Android Studio 使用 Gradle 构建工具，而 Gradle 继承了强大、灵活的 Ant 和 Maven 丰富的依赖管理，配置管理简单，脚本编写方便灵活，插件模块化。</p>
+<p>Android Studio 使用 Gradle 构建工具，Eclipse 的 ADT 插件使用的是 Ant 构建工具。因为两个构建工具的区别，导致习惯了 Eclipse 开发环境的开发者刚开始比较难适应 Android Studio。如果要迁移到 Android Studio，建议最好了解下 Gradle 构建工具。Gradle 构建工具是任务驱动型的构建工具，并且可以通过各种 Plugin 插件扩展功能以适应各种构建任务。对应 Android 项目的 Gradle 插件就是 Android Gradle Plugin。</p>
+<h3 id="为什么使用"><a href="#为什么使用" class="headerlink" title="为什么使用"></a>为什么使用</h3><p>Android Studio相比ADT的好处就不啰嗦了，好马配好鞍，Android Studio为什么采用Gradle作为构建工具呢？Gradle是一个优秀的构建系统和构建工具，可以通过插件来创建自定的义构建逻辑。<br>Gradle的优点：</p>
+<ul>
+<li>采用了Domain Specific Language(DSL 语言) 来描述和控制构建逻辑。</li>
+<li>构建文件基于 Groovy，并且允许通过混合声明 DSL 元素和使用代码来控制 DSL 元素以控制自定义的构建逻辑。</li>
+<li>支持 Maven 或者 Ivy 的依赖管理。</li>
+<li>非常灵活。允许使用最好的实现，但是不会强制实现的方式。</li>
+<li>插件可以提供自己的 DSL 和 API 以供构建文件使用。</li>
+<li>良好的 API 工具供 IDE 集成。</li>
+</ul>
+<p>Gradle构建系统的目标：</p>
+<ul>
+<li>让重用代码和资源变得更加容易</li>
+<li>让创建同一个APP的不同版本变得更加容易，无论是多个APP发布版本还是同一个发布不同的版本</li>
+<li>让构建过程变得更加容易配置，扩展和定制</li>
+<li>整合优秀IDE</li>
+</ul>
+<h3 id="项目的构建文件"><a href="#项目的构建文件" class="headerlink" title="项目的构建文件"></a>项目的构建文件</h3><p>Gradle在Android Studio的项目中是如何使用的呢？一个Gradle项目的构建过程定义在了build.gradle的文件中，在项目的根目录下，如图：</p>
+<p><img src="../../../../img/project.png" alt="android项目"></p>
+<p>最简单的Android项目的build.gradle文件包含以下内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">'com.android.tools.build:gradle:0.11.1'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apply plugin: <span class="string">'android'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">19</span></span><br><span class="line">    buildToolsVersion <span class="string">"19.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单分析下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buildscrip&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>配置驱动构建过程的代码，在这个部分声明了使用Maven仓库，并且声明了一个maven文件的依赖路径。这个文件就是包含了0.11.1版本android gradle插件的库。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'android'</span></span><br></pre></td></tr></table></figure>
+<p>这里添加了android插件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>这里配置android构建过程需要的参数</p>
+<p>默认情况下，只需要配置目标编译SDK版本和编译工具版本，即compileSdkVersion和buildToolsVersion属性。 这个complieSdkVersion属性相当于旧构建系统中project.properites文件中的target属性。这个新的属性可以跟旧的target属性一样指定一个int或者String类型的值。</p>
+<p>与上面基本的构建文件对应的是一个默认的文件夹结构。Gradle遵循约定优先于配置的概念，我们需要在可能的情况尽可能提供合理的默认配置参数。</p>
+<p>基本的项目开始于两个名为“source sets”的组件，即main source code和test code。分别位于：</p>
+<ul>
+<li>src/main/</li>
+<li>src/androidTest/<br>里面每一个文件夹都有与之相应的源组件:</li>
+<li>AndroidManifest.xml</li>
+<li>res/</li>
+<li>assets/</li>
+<li>aidl/</li>
+<li>rs/</li>
+<li>jni/</li>
+</ul>
+<h3 id="配置结构"><a href="#配置结构" class="headerlink" title="配置结构"></a>配置结构</h3><p>当默认的项目结构不适用的时候，你可能需要去配置它。根据Gradle文档，重新为Android项目sourceSets。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    <span class="built_in">source</span>Sets &#123;</span><br><span class="line">        main &#123;</span><br><span class="line">            manifest.srcFile <span class="string">'AndroidManifest.xml'</span></span><br><span class="line">            java.srcDirs = [<span class="string">'src'</span>]</span><br><span class="line">            resources.srcDirs = [<span class="string">'src'</span>]</span><br><span class="line">            aidl.srcDirs = [<span class="string">'src'</span>]</span><br><span class="line">            renderscript.srcDirs = [<span class="string">'src'</span>]</span><br><span class="line">            res.srcDirs = [<span class="string">'res'</span>]</span><br><span class="line">            assets.srcDirs = [<span class="string">'assets'</span>]</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        androidTest.setRoot(<span class="string">'tests'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它使用了旧项目结构中的main源码，并且将androidTest <em>sourceSet</em>组件重新映射到<em>tests</em>文件夹。</p>
+<h3 id="构建任务"><a href="#构建任务" class="headerlink" title="构建任务"></a>构建任务</h3><p>添加一个插件到构建文件中将会自动创建一系列构建任务(build tasks)去执行（注：gradle属于任务驱动型构建工具，它的构建过程是基于Task的）。Java plugin和Android plugin都会创建以下task：</p>
+<ul>
+<li>assemble<br>  这个task将会组合项目的所有输出。</li>
+<li>check<br>  这个task将会执行所有检查。</li>
+<li>connectedCheck<br>  这个task将会在一个指定的设备或者模拟器上执行检查，它们可以同时在所有连接的设备上执行。</li>
+<li>deviceCheck<br>  通过APIs连接远程设备来执行检查，这是在CL服务器上使用的。</li>
+<li>build<br>  这个task将会执行assemble和check两个task的所有工作</li>
+<li>clean<br>  这个task将会清空项目的输出。</li>
+</ul>
+<p>实际上assemble，check，build这三个task不做任何事情。它们只是一个Task标志，用来告诉android plugin添加实际需要执行的task去完成这些工作。</p>
+<p>这就允许你去调用相同的task，而不需要考虑当前是什么类型的项目，或者当前项目添加了什么plugin。 例如，添加了findbugs plugin将会创建一个新的task并且让check task依赖于这个新的task。当check task被调用的时候，这个新的task将会先被调用。</p>
+<p>在命令行环境中，你可以执行以下命令来获取更多高级别的task：</p>
+<pre><code>gradle tasks
+</code></pre><p>查看所有task列表和它们之间的依赖关系可以执行以下命令：</p>
+<pre><code>gradle tasks --all
+</code></pre><p>注意：<br>Gradle会自动监视一个task声明的所有输入和输出。<br>两次执行build task并且期间项目没有任何改动，gradle将会使用UP-TO-DATE通知所有task。这意味着第二次build执行的时候不会请求任何task执行。这允许task之间互相依赖，而不会导致不需要的构建请求被执行。</p>
+<p>一个Android项目至少拥有两个输出：debug APK（调试版APK)和release APK（发布版APK）。每一个输出都拥有自己的标识性task以便能够单独构建它们。</p>
+<ul>
+<li>assemble<ul>
+<li>assembleDebug</li>
+<li>assembleRelease<br>它们都依赖于其它一些tasks以完成构建一个APK需要多个步骤。其中assemble task依赖于这两个task，所以执行assemble将会同时构建出两个APK。</li>
+</ul>
+</li>
+</ul>
+<p>check task也拥有自己的依赖：</p>
+<ul>
+<li>check<ul>
+<li>lint</li>
+</ul>
+</li>
+<li>connectedCheck<ul>
+<li>connectedAndroidTest</li>
+<li>connectedUiAutomatorTest(目前还没有应用到）</li>
+</ul>
+</li>
+<li>deviceCheck<ul>
+<li>这个test依赖于test创建时，其它实现测试扩展点的插件。</li>
+</ul>
+</li>
+</ul>
+<p>最后，只要task能够被安装（那些要求签名的task），android plugin就会为所有构建类型（debug，release，test）安装或者卸载。</p>
+<h3 id="基本的构建定制"><a href="#基本的构建定制" class="headerlink" title="基本的构建定制"></a>基本的构建定制</h3><p>Android plugin提供了大量DSL用于直接从构建系统定制大部分事情。</p>
+<p>Manifest 属性</p>
+<p>通过SDL可以配置一下manifest选项：</p>
+<ul>
+<li>minSdkVersion</li>
+<li>targetSdkVersion</li>
+<li>versionName</li>
+<li>applicationId (有效的包名 – 更多详情请查阅ApplicationId 对比 PackageName)</li>
+<li>package Name for the test application</li>
+<li>Instrumentation test runner</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">19</span></span><br><span class="line">    buildToolsVersion <span class="string">"19.0.0"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        versionCode <span class="number">12</span></span><br><span class="line">        versionName <span class="string">"2.0"</span></span><br><span class="line">        minSdkVersion <span class="number">16</span></span><br><span class="line">        targetSdkVersion <span class="number">16</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在android元素中的defaultConfig元素中定义所有配置。</p>
+<h3 id="构建类型"><a href="#构建类型" class="headerlink" title="构建类型"></a>构建类型</h3><p>默认情况下，Android Plugin会自动给项目设置同时构建应用程序的debug和release版本。 两个版本之间的不同主要围绕着能否在一个安全设备上调试，以及APK如何签名。</p>
+<p>Debug版本采用使用通用的name/password键值对自动创建的数字证书进行签名，以防止构建过程中出现请求信息。Release版本在构建过程中没有签名，需要稍后再签名。</p>
+<p>这些配置通过一个BuildType对象来配置。默认情况下，这两个实例都会被创建，分别是一个debug版本和一个release版本。</p>
+<p>Android plugin允许像创建其他构建类型一样定制debug和release实例。这需要在buildTypes的DSL容器中配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            applicationIdSuffix <span class="string">".debug"</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        jnidebug.initWith(buildTypes.debug)</span><br><span class="line">        jnidebug &#123;</span><br><span class="line">            packageNameSuffix <span class="string">".jnidebug"</span></span><br><span class="line">            jnidebugBuild <span class="keyword">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码片段实现了以下功能：</p>
+<ul>
+<li>配置默认的debug构建类型<ul>
+<li>将debug版本的包名设置为.debug以便能够同时在一台设备上安装<em>debug</em>和<em>release</em>版本的apk。</li>
+<li>创建了一个名为jnidebug的新构建类型，并且这个构建类型是debug构建类型的一个副本。</li>
+<li>继续配置jnidebug构建类型，允许使用JNI组件，并且也添加了不一样的包名后缀。</li>
+</ul>
+</li>
+</ul>
+<p>创建一个新的构建类型就是简单的在buildType标签下添加一个新的元素，并且可以使用initWith()或者直接使用闭包来配置它。</p>
+<h3 id="签名配置"><a href="#签名配置" class="headerlink" title="签名配置"></a>签名配置</h3><p>对一个应用程序签名需要以下：</p>
+<ul>
+<li>一个Keystory</li>
+<li>一个keystory密码</li>
+<li>一个key的别名</li>
+<li>一个key的密码</li>
+<li>存储类型</li>
+</ul>
+<p>位置，键名，两个密码，还有存储类型一起形成了签名配置。</p>
+<p>默认情况下，debug被配置成使用一个debug keystory。 debug keystory使用了默认的密码和默认key及默认的key密码。 debug keystory的位置在$HOME/.android/debug.keystroe，如果对应位置不存在这个文件将会自动创建一个。</p>
+<p>debug Build Type(构建类型) 会自动使用debug SigningConfig (签名配置)。</p>
+<p>可以创建其他配置或者自定义内建的默认配置。通过signingConfigs这个DSL容器来配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    signingConfigs &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            <span class="function">storeFile <span class="title">file</span><span class="params">(<span class="string">"debug.keystore"</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        myConfig </span>&#123;</span><br><span class="line">            <span class="function">storeFile <span class="title">file</span><span class="params">(<span class="string">"other.keystore"</span>)</span></span><br><span class="line">            storePassword "android"</span><br><span class="line">            keyAlias "androiddebugkey"</span><br><span class="line">            keyPassword "android"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buildTypes </span>&#123;</span><br><span class="line">        foo &#123;</span><br><span class="line">            debuggable <span class="keyword">true</span></span><br><span class="line">            jniDebugBuild <span class="keyword">true</span></span><br><span class="line">            signingConfig signingConfigs.myConfig</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码片段修改debug keystory的路径到项目的根目录下。在这个例子中，这将自动影响其他使用到debug构建类型的构建类型。</p>
+<h3 id="运行-Proguard"><a href="#运行-Proguard" class="headerlink" title="运行 Proguard"></a>运行 Proguard</h3><p>从Gradle Plugin for ProGuard version 4.10之后就开始支持ProGuard。ProGuard插件是自动添加进来的。如果<em>Build Type</em>的<em>runProguard</em>属性被设置为true，对应的task将会自动创建。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            <span class="function">runProguard <span class="keyword">true</span></span><br><span class="line">            proguardFile <span class="title">getDefaultProguardFile</span><span class="params">(<span class="string">'proguard-android.txt'</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    productFlavors </span>&#123;</span><br><span class="line">        flavor1 &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        flavor2 &#123;</span><br><span class="line">            proguardFile <span class="string">'some-other-rules.txt'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发布版本将会使用它的Build Type中声明的规则文件，product flavor（定制的产品版本）将会使用对应flavor中声明的规则文件。</p>
+<p>这里有两个默认的规则文件：</p>
+<ul>
+<li>proguard-android.txt</li>
+<li>proguard-android-optimize.txt</li>
+</ul>
+<p>这两个文件都在SDK的路径下。使用<em>getDefaultProguardFile()</em>可以获取这些文件的完整路径。它们除了是否要进行优化之外，其它都是相同的。</p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2016/04/18/Android N将逐步实现对VR支持/" title="Android N将逐步实现对VR支持" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/04/08/动态权限管理/" title="Android 6.0 动态权限管理" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Gradle" data-title="Android Studio Gradle" data-url="http://joytan1209.github.io/2016/04/09/Gradle/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joytan1209"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<div class="global-share" id="global-share" data-title="Android Studio Gradle" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/09/Gradle/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
