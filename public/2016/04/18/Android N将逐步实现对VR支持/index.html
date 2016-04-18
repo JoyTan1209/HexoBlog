@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android N将逐步实现对VR支持 | JoyTan | 做自己，不将就</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Android,杂谈">
+  <meta name="description" content="据国外媒体报道，在Android N的开发者预览版中支持VR功能，同时支持Khronos最新Vulkan API。其他还支持全新的3D渲染API（Vulkan）、Emoji Unicode 9、压感屏及面向平板的分屏多任务模式等。
+在Android系统中，可以通过以下路径来访问这个炫酷的功能:1Settings（设置） -&amp;gt; Apps（应用） -&amp;gt; Configure apps（应用配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android N将逐步实现对VR支持">
+<meta property="og:url" content="http://joytan1209.github.io/2016/04/18/Android N将逐步实现对VR支持/index.html">
+<meta property="og:site_name" content="JoyTan">
+<meta property="og:description" content="据国外媒体报道，在Android N的开发者预览版中支持VR功能，同时支持Khronos最新Vulkan API。其他还支持全新的3D渲染API（Vulkan）、Emoji Unicode 9、压感屏及面向平板的分屏多任务模式等。
+在Android系统中，可以通过以下路径来访问这个炫酷的功能:1Settings（设置） -&amp;gt; Apps（应用） -&amp;gt; Configure apps（应用配">
+<meta property="og:image" content="http://joytan1209.github.io/../../../../images/vr_help_services.jpg">
+<meta property="og:updated_time" content="2016-04-18T06:23:41.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android N将逐步实现对VR支持">
+<meta name="twitter:description" content="据国外媒体报道，在Android N的开发者预览版中支持VR功能，同时支持Khronos最新Vulkan API。其他还支持全新的3D渲染API（Vulkan）、Emoji Unicode 9、压感屏及面向平板的分屏多任务模式等。
+在Android系统中，可以通过以下路径来访问这个炫酷的功能:1Settings（设置） -&amp;gt; Apps（应用） -&amp;gt; Configure apps（应用配">
+<meta name="twitter:image" content="http://joytan1209.github.io/../../../../images/vr_help_services.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="JoyTan" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">谈朝银</h5>
+        <a href="mailto:undefined" title="JoyTan1209@qq.com" class="mail">JoyTan1209@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            归档
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            标签
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="http://www.weibo.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            微博
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/about"  >
+            <i class="icon icon-lg icon-link"></i>
+            关于
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <p>
+  <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>JoyTan &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android N将逐步实现对VR支持</div>
+        
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Android N将逐步实现对VR支持</h1>
+    <h5 class="subtitle">2016-04-18</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="posts-Android N将逐步实现对VR支持" class="article article-type-posts" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Android N将逐步实现对VR支持" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/18/Android N将逐步实现对VR支持/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><p>据国外媒体报道，在Android N的开发者预览版中支持VR功能，同时支持Khronos最新Vulkan API。其他还支持全新的3D渲染API（Vulkan）、Emoji Unicode 9、压感屏及面向平板的分屏多任务模式等。</p>
+<p>在Android系统中，可以通过以下路径来访问这个炫酷的功能:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Settings（设置） -&gt; Apps（应用） -&gt; Configure apps（应用配置） -&gt; Special Access（特殊访问） -&gt; VR helper services（虚拟现实辅助服务）</span><br></pre></td></tr></table></figure></p>
+<p>然后将显示接入这个API的应用列表，用户可以选择永许或者拒绝。这看起来似乎很快就可以有一个名为VR Listener”或者“VR helper”的应用了。<br><img src="../../../../images/vr_help_services.jpg" alt="VR helper services"></p>
+<p>有关VR的细节暂不清楚，但《华尔街日报》在2月份提到过，Google正赶在推出自家基于智能机的头戴式装之前优化Android，让它能够更好地支持VR设备。</p>
+<p>有关VR模式的一个猜想是，其会禁用手机的自锁机制，以避免使用一段时间后突然“黑屏”。此外，Google据说还在打造一款无需智能机或PC的独立装置。</p>
+<p>根据报道还说有一个新硬件支持标志，名为“Config Sustained Performance Mode Supported”，Ars Technica的Ron Amadeo觉得它可能是一个特殊的功能，允许持续直接使用手机的CPU和GPU，跟Gear VR能够在兼容的三星手机上运行的方式类似。</p>
+<p>我们知道谷歌的虚拟现实雄心远远超过了Cardboard，现在通过这个新版本系统的更新可以得道印证。在2016年第三季度Android N发布之前，谷歌至少在计划另外3个开发商预览版，所以我们可能会继续看到虚拟现实功能的增加。</p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/04/08/动态权限管理/" title="Android 6.0 动态权限管理" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Android N将逐步实现对VR支持" data-title="Android N将逐步实现对VR支持" data-url="http://joytan1209.github.io/2016/04/18/Android N将逐步实现对VR支持/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joytan1209"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<div class="global-share" id="global-share" data-title="Android N将逐步实现对VR支持" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/18/Android N将逐步实现对VR支持/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

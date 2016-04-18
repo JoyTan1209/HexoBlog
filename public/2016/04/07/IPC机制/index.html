@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android IPC机制 | JoyTan | 做自己，不将就</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="Android,移动开发">
+  <meta name="description" content="Android IPC机制
+在任何一个操作系统中都需要IPC机制的存在，例如：Linux中通过共享内存、命名通道等来实现进程间的通信。然而在Android系统中是什么来实现呢？答案是Binder。当然，不仅使用了Binder机制来实现了IPC,还使用了Socket实现不同终端之间的通信。
+IPC介绍1、Serializable接口是Java中为对象提供标准的序列化和反序列化操作的接口，而Parce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android IPC机制">
+<meta property="og:url" content="http://joytan1209.github.io/2016/04/07/IPC机制/index.html">
+<meta property="og:site_name" content="JoyTan">
+<meta property="og:description" content="Android IPC机制
+在任何一个操作系统中都需要IPC机制的存在，例如：Linux中通过共享内存、命名通道等来实现进程间的通信。然而在Android系统中是什么来实现呢？答案是Binder。当然，不仅使用了Binder机制来实现了IPC,还使用了Socket实现不同终端之间的通信。
+IPC介绍1、Serializable接口是Java中为对象提供标准的序列化和反序列化操作的接口，而Parce">
+<meta property="og:updated_time" content="2016-04-08T03:11:32.811Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android IPC机制">
+<meta name="twitter:description" content="Android IPC机制
+在任何一个操作系统中都需要IPC机制的存在，例如：Linux中通过共享内存、命名通道等来实现进程间的通信。然而在Android系统中是什么来实现呢？答案是Binder。当然，不仅使用了Binder机制来实现了IPC,还使用了Socket实现不同终端之间的通信。
+IPC介绍1、Serializable接口是Java中为对象提供标准的序列化和反序列化操作的接口，而Parce">
+  
+    <link rel="alternative" href="/atom.xml" title="JoyTan" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">谈朝银</h5>
+        <a href="mailto:undefined" title="JoyTan1209@qq.com" class="mail">JoyTan1209@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            归档
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            标签
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="http://www.weibo.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            微博
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/about"  >
+            <i class="icon icon-lg icon-link"></i>
+            关于
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <p>
+  <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>JoyTan &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Android IPC机制</div>
+        
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">Android IPC机制</h1>
+    <h5 class="subtitle">2016-04-07</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="post-IPC机制" class="article article-type-post" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发/">移动开发</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="Android IPC机制" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/07/IPC机制/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#IPC介绍"><span class="post-toc-text">IPC介绍</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#实现IPC的方式"><span class="post-toc-text">实现IPC的方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Binder连接池"><span class="post-toc-text">Binder连接池</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><p><strong>Android IPC机制</strong></p>
+<p>在任何一个操作系统中都需要IPC机制的存在，例如：Linux中通过共享内存、命名通道等来实现进程间的通信。然而在Android系统中是什么来实现呢？答案是Binder。当然，不仅使用了Binder机制来实现了IPC,还使用了Socket实现不同终端之间的通信。</p>
+<h3 id="IPC介绍"><a href="#IPC介绍" class="headerlink" title="IPC介绍"></a>IPC介绍</h3><p>1、Serializable接口是Java中为对象提供标准的序列化和反序列化操作的接口，而Parcelable接口是Android提供的序列化方式的接口。</p>
+<p>2、serialVersionUId是一串long型数字，主要是用来辅助序列化和反序列化的，原则上序列化后的数据中的serialVersionUId只有和当前类的serialVersionUId相同才能够正常地被反序列化。serialVersionUId的详细工作机制：序列化的时候系统会把当前类的serialVersionUId写入序列化的文件中，当反序列化的时候系统会去检测文件中的serialVersionUId，看它是否和当前类的serialVersionUId一致，如果一致就说明序列化的类的版本和当前类的版本是相同的，这个时候可以成功反序列化；否则说明版本不一致无法正常反序列化。一般来说，我们应该手动指定serialVersionUId的值：<br>    1.静态成员变量属于类不属于对象，所以不参与序列化过程；<br>    2.声明为transient的成员变量不参与序列化过程。<br>    3.Parcelable接口内部包装了可序列化的数据，可以在Binder中自由传输，Parcelable主要用在内存序列化上，可以直接序列化的有Intent、Bundle、Bitmap以及List和Map等等</p>
+<h3 id="实现IPC的方式"><a href="#实现IPC的方式" class="headerlink" title="实现IPC的方式"></a>实现IPC的方式</h3><p>1、 Bundle：Bundle实现了Parcelable接口，Activity、Service和Receiver都支持在Intent中传递Bundle数据。</p>
+<p>2、 Messenger：Messenger是一种轻量级的IPC方案，其底层是用AIDL实现的。Messenger是以串行的方式处理请求的，服务端只能一个个处理，不能并发执行。</p>
+<p>3、 AIDL：第一步创建一个Service和一个AIDL接口，第二步创建一个类继承自AIDL接口中的Stub类并实现Stub类中的抽象方法，然后在Service的onBind方法中返回这个类的对象，再在客户端绑定服务端Service，建立连接后就可以访问远程服务端的方法。</p>
+<pre><code>1.AIDL支持的数据类型：基本数据类型、String和CharSequence、ArrayList、HashMap、Parcelable以及AIDL；
+2.某些类即使和AIDL文件在同一个包中也要显式import进来；
+3.AIDL中除了基本数据类，其他类型的参数都要标上方向：in、out或者inout；
+4.AIDL接口中支持方法，不支持声明静态变量；
+5.为了方便AIDL的开发，建议把所有和AIDL相关的类和文件全部放入同一个包中，这样做的好处是，当客户端是另一个应用的时候，可以直接把整个包复制到客户端工程中。
+6.RemoteCallbackList是系统提供来删除跨进程Listener的接口。是一个泛型，可以管理任何的ALDL接口。
+</code></pre><p> 4、ContentProvider：</p>
+<pre><code>1.ContentProvider主要以表格的形式来组织数据，并且可以包含多个表；
+2.ContentProvider还支持文件数据，比如图片、视频等，系统提供的MediaStore就是文件类型的ContentProvider；
+3.ContentProvider对底层的数据存储方式没有任何要求，可以是SQLite、文件，甚至是内存中的一个对象都行；
+4.要观察ContentProvider中的数据变化情况，可以通过ContentResolver的registerContentObserver方法来注册观察者；
+</code></pre><p> 5、Socket：Socket是网络通信中“套接字”的概念，分为流式套接字和用户数据包套接字两种，分别对应网络的传输控制层的TCP和UDP协议。 </p>
+<p> 6、文件共享：这种方式简单，适合在对数据同步要求不高的进程之间进行通信，并且要妥善处理并发读写的问题。</p>
+<h3 id="Binder连接池"><a href="#Binder连接池" class="headerlink" title="Binder连接池"></a>Binder连接池</h3><p>如果项目规模较大，创建过多的Service是不合理的，因为service是系统资源，过多的service会使得应用看起来很重，所以最好的做法是将所有的AIDL放在同一个Service中去管理。其工作机制是：每一个业务模块创建自己的AIDL接口并实现此接口，此时不同业务模块之间不能有耦合，所有实现细节我们要单独开来，然后向服务端提供自己的唯一标识和其对应的Binder对象；对于服务端来说，只需要一个Service，服务端提供一个queryBinder接口，这个接口能够根据业务模块的特征来返回相应的Binder对象给它们，不同的业务模块拿到所需的Binder对象后就可以进行远程方法调用了。<br>Binder连接池的主要作用就是将每个业务模块的Binder请求统一转发到远程Service去执行，从而避免了重复创建Service的过程。</p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+      <a href="/2016/04/08/动态权限管理/" title="Android 6.0 动态权限管理" id="post-prev" class="post-nav-link">
+        <i class="icon icon-chevron-left"></i>
+        <span class="article-nav-title">上一篇</span>
+      </a>
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/04/07/hello-world/" title="Hello World" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="IPC机制" data-title="Android IPC机制" data-url="http://joytan1209.github.io/2016/04/07/IPC机制/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joytan1209"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<div class="global-share" id="global-share" data-title="Android IPC机制" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/07/IPC机制/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
