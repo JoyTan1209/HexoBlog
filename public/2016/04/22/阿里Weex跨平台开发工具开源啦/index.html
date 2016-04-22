@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>阿里Weex跨平台开发工具开源啦 | JoyTan | 做自己，不将就</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="杂谈">
+  <meta name="description" content="Weex简介Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。
+阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。可以在官网申请：Weex，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5
+解决的痛点Wh">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里Weex跨平台开发工具开源啦">
+<meta property="og:url" content="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html">
+<meta property="og:site_name" content="JoyTan">
+<meta property="og:description" content="Weex简介Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。
+阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。可以在官网申请：Weex，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5
+解决的痛点Wh">
+<meta property="og:image" content="http://joytan1209.github.io/../../../../images/weex.png">
+<meta property="og:image" content="http://joytan1209.github.io/../../../../images/weex_demo.png">
+<meta property="og:updated_time" content="2016-04-22T07:09:18.453Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里Weex跨平台开发工具开源啦">
+<meta name="twitter:description" content="Weex简介Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。
+阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。可以在官网申请：Weex，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5
+解决的痛点Wh">
+<meta name="twitter:image" content="http://joytan1209.github.io/../../../../images/weex.png">
+  
+    <link rel="alternative" href="/atom.xml" title="JoyTan" type="application/atom+xml">
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner">
+  <a href="javascript:;" class="header-icon waves-circle-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.jpg"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">谈朝银</h5>
+        <a href="mailto:undefined" title="JoyTan1209@qq.com" class="mail">JoyTan1209@qq.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <ul class="nav">
+    
+        <li class="waves-block">
+          <a href="/"  >
+            <i class="icon icon-lg icon-home"></i>
+            主页
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/archives"  >
+            <i class="icon icon-lg icon-archives"></i>
+            归档
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/tags"  >
+            <i class="icon icon-lg icon-tags"></i>
+            标签
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="https://github.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-github"></i>
+            Github
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="http://www.weibo.com/JoyTan1209" target="_blank" >
+            <i class="icon icon-lg icon-weibo"></i>
+            微博
+          </a>
+        </li>
+    
+        <li class="waves-block">
+          <a href="/about"  >
+            <i class="icon icon-lg icon-link"></i>
+            关于
+          </a>
+        </li>
+    
+  </ul>
+
+  <footer class="footer">
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+  <p>
+  <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>JoyTan &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">阿里Weex跨平台开发工具开源啦</div>
+        
+        <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">阿里Weex跨平台开发工具开源啦</h1>
+    <h5 class="subtitle">2016-04-22</h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      
+  <article id="posts-阿里Weex跨平台开发工具开源啦" class="article article-type-posts" itemscope itemprop="blogPost">
+    
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
+</div>
+      </div>
+      <div class="post-body">
+
+        <aside class="post-widget" id="post-widget">
+
+          
+          <div class="post-share" id="post-share" data-title="阿里Weex跨平台开发工具开源啦" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+          
+
+          
+          <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Weex简介"><span class="post-toc-text">Weex简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决的痛点"><span class="post-toc-text">解决的痛点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优势"><span class="post-toc-text">优势</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Demo"><span class="post-toc-text">Demo</span></a></li></ol>
+          </nav>
+          
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" itemprop="postContent"><h2 id="Weex简介"><a href="#Weex简介" class="headerlink" title="Weex简介"></a>Weex简介</h2><p><img src="../../../../images/weex.png" alt="Weex"><br>Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。</p>
+<p>阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。<br>可以在官网申请：<a href="http://alibaba.github.io/weex/index.html#subscriptionWeex" target="_blank" rel="external">Weex</a>，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5</p>
+<h2 id="解决的痛点"><a href="#解决的痛点" class="headerlink" title="解决的痛点"></a>解决的痛点</h2><p>Why?为什么要使用呢</p>
+<p>Weex主要解决了两大痛点：频繁发版和多端研发，同时解决了前端语言性能差和显示效果受限的问题。</p>
+<p>我们只需要在自己的APP中依赖Weex的SDK，就可以用HTML/CSS/JavaScript来开发Native级别的界面。可以部署在服务端，在APP中执行请求。</p>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>相比最近比较火的开源跨平台移动开放项目React Native，Weex更加轻量，提交更加小巧。当然，他们各自的实现方式有所不同。Weex基于web conponent标准，使得开发更加简洁标准，方便上手。Native组件和API都可以横向扩展，方便根据业务灵活定制。Weex渲染层具备优异的性能表现，能够跨平台实现一致的布局效果和实现。对于前端开发来说，Weex能够实现组件化开发、自动化数据绑定，并拥抱Web标准。</p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>官方的案例：<br><img src="../../../../images/weex_demo.png" alt="Weex Demo"><br>具体可以在官网下载<a href="http://alibaba.github.io/weex/download.html" target="_blank" rel="external">Weex playground App</a></p>
+</div>
+
+            
+<nav class="post-nav flex-row">
+  <div class="flex-col waves-block prev">
+    
+  </div>
+  <div class="flex-col waves-block next">
+    
+      <a href="/2016/04/21/Androidy启动页广告实现/" title="Androidy启动页广告实现" id="post-next" class="post-nav-link">
+        <span class="article-nav-title">下一篇</span>
+        <i class="icon icon-chevron-right"></i>
+      </a>
+    
+  </div>
+
+</nav>
+
+
+
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="阿里Weex跨平台开发工具开源啦" data-title="阿里Weex跨平台开发工具开源啦" data-url="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"joytan1209"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+        </div>
+
+      </div>
+
+    
+
+  </article>
+
+
+
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<div class="global-share" id="global-share" data-title="阿里Weex跨平台开发工具开源啦" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
