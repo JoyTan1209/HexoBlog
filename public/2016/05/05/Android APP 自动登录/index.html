@@ -3,29 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>阿里Weex跨平台开发工具开源啦 | JoyTan | 做自己，不将就</title>
+  <title>浅谈Android App 自动登录实现 | JoyTan | 做自己，不将就</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="keywords" content="杂谈">
-  <meta name="description" content="Weex简介Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。
-阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。可以在官网申请：Weex，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5
-解决的痛点Wh">
+  <meta name="keywords" content="Android,移动开发">
+  <meta name="description" content="需求自动登录应该是比较常见的需求了，绝大多数的APP都有这个功能。所谓自动登录，就是登录之后，在下次重启App后用户仍然可以登录，而不需要重新输入用户名和密码。因为每次都要用户输入用户名/密码登录是很麻烦的事情，当然强迫症除外。
+实现方式最常见的做法就是，登录成功后，将用户名、密码保存到本地。重拾是判断本地是否有已保存的用户名、密码，如果有则以本地保存的用户名、密码做模拟登录操作。
+最常用的保存用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿里Weex跨平台开发工具开源啦">
-<meta property="og:url" content="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html">
+<meta property="og:title" content="浅谈Android App 自动登录实现">
+<meta property="og:url" content="http://joytan1209.github.io/2016/05/05/Android APP 自动登录/index.html">
 <meta property="og:site_name" content="JoyTan">
-<meta property="og:description" content="Weex简介Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。
-阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。可以在官网申请：Weex，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5
-解决的痛点Wh">
-<meta property="og:image" content="http://joytan1209.github.io/../../../../images/weex.png">
-<meta property="og:image" content="http://joytan1209.github.io/../../../../images/weex_demo.png">
-<meta property="og:updated_time" content="2016-04-22T07:09:18.453Z">
+<meta property="og:description" content="需求自动登录应该是比较常见的需求了，绝大多数的APP都有这个功能。所谓自动登录，就是登录之后，在下次重启App后用户仍然可以登录，而不需要重新输入用户名和密码。因为每次都要用户输入用户名/密码登录是很麻烦的事情，当然强迫症除外。
+实现方式最常见的做法就是，登录成功后，将用户名、密码保存到本地。重拾是判断本地是否有已保存的用户名、密码，如果有则以本地保存的用户名、密码做模拟登录操作。
+最常用的保存用">
+<meta property="og:updated_time" content="2016-05-05T06:48:01.590Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="阿里Weex跨平台开发工具开源啦">
-<meta name="twitter:description" content="Weex简介Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。
-阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。可以在官网申请：Weex，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5
-解决的痛点Wh">
-<meta name="twitter:image" content="http://joytan1209.github.io/../../../../images/weex.png">
+<meta name="twitter:title" content="浅谈Android App 自动登录实现">
+<meta name="twitter:description" content="需求自动登录应该是比较常见的需求了，绝大多数的APP都有这个功能。所谓自动登录，就是登录之后，在下次重启App后用户仍然可以登录，而不需要重新输入用户名和密码。因为每次都要用户输入用户名/密码登录是很麻烦的事情，当然强迫症除外。
+实现方式最常见的做法就是，登录成功后，将用户名、密码保存到本地。重拾是判断本地是否有已保存的用户名、密码，如果有则以本地保存的用户名、密码做模拟登录操作。
+最常用的保存用">
   
     <link rel="alternative" href="/atom.xml" title="JoyTan" type="application/atom+xml">
   
@@ -115,7 +112,7 @@
         <a href="javascript:;" class="header-icon waves-circle-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">阿里Weex跨平台开发工具开源啦</div>
+        <div class="flex-col header-title ellipsis">浅谈Android App 自动登录实现</div>
         
         <a href="javascript:;" class="header-icon waves-circle-light" id="menu-share">
             <i class="icon icon-lg icon-share-alt"></i>
@@ -125,18 +122,18 @@
 </header>
 <header class="content-header">
   <div class="container">
-    <h1 class="author">阿里Weex跨平台开发工具开源啦</h1>
-    <h5 class="subtitle">2016-04-22</h5>
+    <h1 class="author">浅谈Android App 自动登录实现</h1>
+    <h5 class="subtitle">2016-05-05</h5>
   </div>
 </header>
 
     <div class="container body-wrap">
       
-  <article id="posts-阿里Weex跨平台开发工具开源啦" class="article article-type-posts" itemscope itemprop="blogPost">
+  <article id="posts-Android APP 自动登录" class="article article-type-posts" itemscope itemprop="blogPost">
     
       <div class="post-meat flex-row">
         <div class="flex-col">
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂谈/">杂谈</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发/">移动开发</a></li></ul>
 </div>
       </div>
       <div class="post-body">
@@ -144,7 +141,7 @@
         <aside class="post-widget" id="post-widget">
 
           
-          <div class="post-share" id="post-share" data-title="阿里Weex跨平台开发工具开源啦" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html">
+          <div class="post-share" id="post-share" data-title="浅谈Android App 自动登录实现" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/05/05/Android APP 自动登录/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>
@@ -184,35 +181,28 @@
 
           
           <nav class="post-toc-wrap" id="post-toc">
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Weex简介"><span class="post-toc-text">Weex简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决的痛点"><span class="post-toc-text">解决的痛点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优势"><span class="post-toc-text">优势</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Demo"><span class="post-toc-text">Demo</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求"><span class="post-toc-text">需求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现方式"><span class="post-toc-text">实现方式</span></a></li></ol>
           </nav>
           
         </aside>
 
         <div class="post-main">
 
-            <div class="post-content" itemprop="postContent"><h2 id="Weex简介"><a href="#Weex简介" class="headerlink" title="Weex简介"></a>Weex简介</h2><p><img src="../../../../images/weex.png" alt="Weex"><br>Weex能够完美兼顾性能与动态性，让移动开发者通过简捷的前端语法写出Native级别的性能体验，并支持iOS、安卓、YunOS及Web等多端部署。</p>
-<p>阿里巴巴与2016年4月21日在Qcon大会上宣布跨平台开发工具Weex开放内测邀请。<br>可以在官网申请：<a href="http://alibaba.github.io/weex/index.html#subscriptionWeex" target="_blank" rel="external">Weex</a>，又一前端开发者的福音！目前内测邀请只有Android版本，据说，在6月份将全部开源:iOS、Android、H5</p>
-<h2 id="解决的痛点"><a href="#解决的痛点" class="headerlink" title="解决的痛点"></a>解决的痛点</h2><p>Why?为什么要使用呢</p>
-<p>Weex主要解决了两大痛点：频繁发版和多端研发，同时解决了前端语言性能差和显示效果受限的问题。</p>
-<p>我们只需要在自己的APP中依赖Weex的SDK，就可以用HTML/CSS/JavaScript来开发Native级别的界面。可以部署在服务端，在APP中执行请求。</p>
-<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><p>相比最近比较火的开源跨平台移动开放项目React Native，Weex更加轻量，提交更加小巧。当然，他们各自的实现方式有所不同。Weex基于web conponent标准，使得开发更加简洁标准，方便上手。Native组件和API都可以横向扩展，方便根据业务灵活定制。Weex渲染层具备优异的性能表现，能够跨平台实现一致的布局效果和实现。对于前端开发来说，Weex能够实现组件化开发、自动化数据绑定，并拥抱Web标准。</p>
-<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>官方的案例：<br><img src="../../../../images/weex_demo.png" alt="Weex Demo"><br>具体可以在官网下载<a href="http://alibaba.github.io/weex/download.html" target="_blank" rel="external">Weex playground App</a></p>
+            <div class="post-content" itemprop="postContent"><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>自动登录应该是比较常见的需求了，绝大多数的APP都有这个功能。所谓自动登录，就是登录之后，在下次重启App后用户仍然可以登录，而不需要重新输入用户名和密码。因为每次都要用户输入用户名/密码登录是很麻烦的事情，当然强迫症除外。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>最常见的做法就是，登录成功后，将用户名、密码保存到本地。重拾是判断本地是否有已保存的用户名、密码，如果有则以本地保存的用户名、密码做模拟登录操作。</p>
+<p>最常用的保存用户名、密码方法就是使用SharedPreferences了。这里就不介绍SharedPreferences了。</p>
+<p>但是，这种方法安全吗？答案是当然不安全了，这种保存方式很容易被窃取。所以在保存用户名、密码时需要做加密处理，而且要用非对称加密方式。对称加密方式在源码外泄时，很容易被方向推算出来。见到过团队就是简单加密后保存的，这种做法存在极大的安全隐患。</p>
+<p>还有就是，在登录时有验证码的情况。在这种情况下，就需要重构了，上面的提到的登录方式是不能自动提交验证码的。当然，自动提交验证码就失去了验证码的意义了。此种情况下就需要使用cookie了。</p>
 </div>
 
             
 <nav class="post-nav flex-row">
   <div class="flex-col waves-block prev">
     
-      <a href="/2016/05/05/Android APP 自动登录/" title="浅谈Android App 自动登录实现" id="post-prev" class="post-nav-link">
-        <i class="icon icon-chevron-left"></i>
-        <span class="article-nav-title">上一篇</span>
-      </a>
-    
   </div>
   <div class="flex-col waves-block next">
     
-      <a href="/2016/04/21/Androidy启动页广告实现/" title="Androidy启动页广告实现" id="post-next" class="post-nav-link">
+      <a href="/2016/04/22/阿里Weex跨平台开发工具开源啦/" title="阿里Weex跨平台开发工具开源啦" id="post-next" class="post-nav-link">
         <span class="article-nav-title">下一篇</span>
         <i class="icon icon-chevron-right"></i>
       </a>
@@ -226,7 +216,7 @@
             
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="阿里Weex跨平台开发工具开源啦" data-title="阿里Weex跨平台开发工具开源啦" data-url="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html"></div>
+	<div class="ds-thread" data-thread-key="Android APP 自动登录" data-title="浅谈Android App 自动登录实现" data-url="http://joytan1209.github.io/2016/05/05/Android APP 自动登录/index.html"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -263,7 +253,7 @@
 <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-circle-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-<div class="global-share" id="global-share" data-title="阿里Weex跨平台开发工具开源啦" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/04/22/阿里Weex跨平台开发工具开源啦/index.html">
+<div class="global-share" id="global-share" data-title="浅谈Android App 自动登录实现" data-pic="/img/logo.jpg" data-summary="null" data-url="http://joytan1209.github.io/2016/05/05/Android APP 自动登录/index.html">
     <div class="tit">分享到：</div>
     <ul class="reset share-icons">
       <li>

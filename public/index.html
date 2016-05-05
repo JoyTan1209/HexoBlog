@@ -125,6 +125,48 @@
   <ul class="post-list">
   
     <li class="post-list-item">
+  <article id="posts-Android APP 自动登录" class="article article-type-posts" itemscope itemprop="blogPost">
+    
+      
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2016/05/05/Android APP 自动登录/">浅谈Android App 自动登录实现</a>
+    </h3>
+  
+
+
+
+      <div class="post-meat flex-row">
+        <div class="flex-col">
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/移动开发/">移动开发</a></li></ul>
+</div>
+        <time datetime="2016-05-05T06:02:49.000Z" itemprop="datePublished" class="post-tiem">
+  2016-05-05
+</time>
+      </div>
+      <div class="post-content" itemprop="postContent" >
+        
+          <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>自动登录应该是比较常见的需求了，绝大多数的APP都有这个功能。所谓自动登录，就是登录之后，在下次重启App后用户仍然可以登录，而不需要重新输入用户名和密码。因为每次都要用户输入用户名/密码登录是很麻烦的事情，当然强迫症除外。</p>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><p>最常见的做法就是，登录成功后，将用户名、密码保存到本地。重拾是判断本地是否有已保存的用户名、密码，如果有则以本地保存的用户名、密码做模拟登录操作。</p>
+<p>最常用的保存用户名、密码方法就是使用SharedPreferences了。这里就不介绍SharedPreferences了。</p>
+<p>但是，这种方法安全吗？答案是当然不安全了，这种保存方式很容易被窃取。所以在保存用户名、密码时需要做加密处理，而且要用非对称加密方式。对称加密方式在源码外泄时，很容易被方向推算出来。见到过团队就是简单加密后保存的，这种做法存在极大的安全隐患。</p>
+<p>还有就是，在登录时有验证码的情况。在这种情况下，就需要重构了，上面的提到的登录方式是不能自动提交验证码的。当然，自动提交验证码就失去了验证码的意义了。此种情况下就需要使用cookie了。</p>
+
+        
+      </div>
+      <div class="post-footer clearfix">
+        <a href="/2016/05/05/Android APP 自动登录/" class="post-more waves-button-light">更多</a>
+      </div>
+    
+
+  </article>
+
+
+</li>
+  
+    <li class="post-list-item">
   <article id="posts-阿里Weex跨平台开发工具开源啦" class="article article-type-posts" itemscope itemprop="blogPost">
     
       
